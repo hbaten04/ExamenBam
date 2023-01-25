@@ -40,7 +40,7 @@ namespace ExamenBam.Controllers
         public string Get(int id)
         {
             return "value";
-        }
+        } 
 
         // POST api/<VehiculoController>
         [HttpPost]
