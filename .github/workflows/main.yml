@@ -1,3 +1,6 @@
+  push:
+    branches:
+      - master
 jobs:
   publish:
     runs-on: ubunto-latest
