@@ -4,6 +4,7 @@ using BAM.APLICATION.Services;
 using BAM.INFRASTRUCTURE.DATA.Contexts;
 using BAM.INFRASTRUCTURE.DATA.Repository;
 using BAM.DOMAIN.Models;
+using Microsoft.EntityFrameworkCore;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ExamenBam.Controllers
@@ -37,10 +38,12 @@ namespace ExamenBam.Controllers
         [HttpGet]
         public ActionResult<List<Vehiculo>> Get()
         {
-            //BAMContext bAMContext = new BAMContext();
-           // bAMContext.Database.EnsureDeleted();
-            //bAMContext.Database.EnsureCreated();
+            BAMContext bAMContext = new BAMContext();
+            //bAMContext.Database.EnsureDeleted();
+            bAMContext.Database.EnsureCreated();
             //var servicio =  vehiculoService();
+            //BAMContext context = new BAMContext();
+            //context.Database.GetPendingMigrations();
             return Ok(_service.Get());
         }
 

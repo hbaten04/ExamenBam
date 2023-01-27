@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using BAM.APLICATION.Services;
+using BAM.DOMAIN.Models;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
@@ -11,9 +13,11 @@ namespace ExamenBam.Controllers
     public class CotizacionQueryController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public CotizacionQueryController(IConfiguration configuration)
+        private readonly CotizacionService _service;
+        public CotizacionQueryController(IConfiguration configuration, CotizacionService service)
         {
             _configuration = configuration;
+            _service = service;
         }
         // GET: api/<CotizacionQueryController>
         [HttpGet("{id}/{enganche}")]
@@ -39,8 +43,20 @@ namespace ExamenBam.Controllers
 
         // POST api/<CotizacionQueryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] Cotizacion cotizacion)
         {
+            string sql = $"SELECT {cotizacion.Plazo} PLAZO, dbo.FNC_CALCULO_PAGO(0.12,{cotizacion.Plazo}, (PrecioVehiculo-{cotizacion.Enganche})) PAGO, VehiculoId, '{cotizacion.EmailCliente}' as EMAILCLIENTE " +
+                        "FROM TBLVEHICULO " +
+                        "WHERE VehiculoId ='" + cotizacion.VehiculoId + "'";
+
+            using var connection = new SqlConnection(_configuration.GetConnectionString("Connection"));
+
+            var vCotizacion = connection.Query<dynamic>(sql).ToList();
+
+            cotizacion.CuotaPago = Convert.ToDecimal(vCotizacion[0].PAGO);
+
+            _service.Add(cotizacion);
+            return Ok(vCotizacion);
         }
 
         // PUT api/<CotizacionQueryController>/5

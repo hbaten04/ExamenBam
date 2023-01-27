@@ -8,6 +8,11 @@ namespace BAM.DOMAIN.Models
 {
     public class Vehiculo
     {
+        public Vehiculo()
+        {
+            Cotizaciones = new HashSet<Cotizacion>();
+        }
+
         public Guid VehiculoId { get; set; }
         public string Motor { get; set; }
         public string Kilometraje { get; set; }
@@ -21,6 +26,7 @@ namespace BAM.DOMAIN.Models
         public virtual Marca Marca { get; set; } = null;
         public Guid TipoVehiculoId { get; set; }
         public virtual TipoVehiculo TipoVehiculo { get; set; } = null;
+        public virtual ICollection<Cotizacion>? Cotizaciones { get; set; }
 
     }
 }

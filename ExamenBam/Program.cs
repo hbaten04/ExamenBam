@@ -11,12 +11,15 @@ IConfiguration configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddScoped<IRepository<Vehiculo, Guid>, BamRepository>();
-builder.Services.AddDbContext<BAMContext>(options=>
+builder.Services.AddScoped<IRepository<Cotizacion, Guid>, CotizacionRepository>();
+
+builder.Services.AddDbContext<BAMContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("Connection"));
 });
 
 builder.Services.AddScoped<VehiculoService>();
+builder.Services.AddScoped<CotizacionService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,8 +30,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 app.UseHttpsRedirection();

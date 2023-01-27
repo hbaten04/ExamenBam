@@ -18,13 +18,14 @@ namespace BAM.INFRASTRUCTURE.DATA.Contexts
 
         }
 
-        public BAMContext(DbContextOptions<BAMContext> options):base(options)
+        public BAMContext(DbContextOptions<BAMContext> options) : base(options)
         {
 
         }
         public DbSet<Vehiculo> vehiculo { get; set; }
         public DbSet<Marca> marca { get; set; }
         public DbSet<TipoVehiculo> tipoVehiculo { get; set; }
+        public DbSet<Cotizacion> cotizacion { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -38,6 +39,7 @@ namespace BAM.INFRASTRUCTURE.DATA.Contexts
             builder.ApplyConfiguration(new VehiculoConfig());
             builder.ApplyConfiguration(new MarcaConfig());
             builder.ApplyConfiguration(new ConfigTipoVehiculo());
+            builder.ApplyConfiguration(new ConfigCotizacion());
         }
     }
 }
