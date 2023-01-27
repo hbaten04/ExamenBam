@@ -14,7 +14,7 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
     public class BamRepository : IRepository<Vehiculo, Guid>
     {
         private BAMContext _db;
-        
+
 
         public BamRepository(BAMContext db)
         {
@@ -34,12 +34,17 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
 
         public void Delete(Guid entityID)
         {
-            throw new NotImplementedException();
+            var vVehiculo = _db.vehiculo.Where(x => x.VehiculoId == entityID).FirstOrDefault();
+
+            if (vVehiculo != null)
+            {
+                _db.vehiculo.Remove(vVehiculo);
+            }
         }
 
         public List<Vehiculo> Get()
         {
-           
+
             return _db.vehiculo.ToList();
         }
 
@@ -56,6 +61,8 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
         public void Update(Vehiculo entity)
         {
             var vVehiculo = _db.vehiculo.Where(x => x.VehiculoId == entity.VehiculoId).FirstOrDefault();
+            entity.TipoVehiculo = null;
+            entity.Marca = null;
 
             if (vVehiculo != null)
             {
@@ -64,6 +71,9 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
                 vVehiculo.NombreVehiculo = entity.NombreVehiculo;
                 vVehiculo.PrecioVehiculo = entity.PrecioVehiculo;
                 vVehiculo.Placa = entity.Placa;
+                vVehiculo.Descripcion = entity.Descripcion;
+                vVehiculo.MarcaId = entity.MarcaId;
+                vVehiculo.TipoVehiculoId = entity.TipoVehiculoId;
 
                 _db.Entry(vVehiculo).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             }

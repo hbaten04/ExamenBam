@@ -29,6 +29,7 @@ namespace BAM.INFRASTRUCTURE.DATA.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+
             options.UseSqlServer("Server=colegiodb.database.windows.net;Database=ExamenBD;User Id=admindba;Password=Colegio.12345;");
         }
 

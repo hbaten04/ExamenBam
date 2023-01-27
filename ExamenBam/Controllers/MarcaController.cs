@@ -14,7 +14,13 @@ namespace ExamenBam.Controllers
     public class MarcaController : ControllerBase
     {
 
-        MarcaService marcaService()
+        private readonly MarcaService _service;
+        public MarcaController(MarcaService service)
+        {
+            _service = service;
+        }
+
+        /*MarcaService marcaService()
         {
             BAMContext context = new BAMContext();
             MarcaRepository bamRepository = new(context);
@@ -23,34 +29,34 @@ namespace ExamenBam.Controllers
 
             return marcaService;
 
-        }
+        }*/
 
         // GET: api/<MarcaController>
         [HttpGet]
         public ActionResult<List<Marca>> Get()
         {
-            var servicio = marcaService();
-            return Ok(servicio.Get());
+            //var servicio = marcaService();
+            return Ok(_service.Get());
         }
 
         // GET api/<MarcaController>/5
-        [HttpGet("{id}")]
+       /*[HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
-        }
+        }*/
 
         // POST api/<MarcaController>
         [HttpPost]
         public ActionResult Post([FromBody] Marca pMarca)
         {
-            var servicio = marcaService();
-            servicio.Add(pMarca);
+            // var servicio = marcaService();
+            _service.Add(pMarca);
             return Ok("Se agrego la marca de forma exitosa");
         }
 
         // PUT api/<MarcaController>/5
-        [HttpPut("{id}")]
+      /*  [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
@@ -59,6 +65,6 @@ namespace ExamenBam.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }

@@ -18,16 +18,16 @@ namespace ExamenBam.Controllers
 
         private readonly VehiculoService _service;
 
-       /* VehiculoService vehiculoService()
-        {
-            BAMContext context = new BAMContext();
-            BamRepository bamRepository = new(context);
-            VehiculoService vehiculoService = new(bamRepository);
+        /* VehiculoService vehiculoService()
+         {
+             BAMContext context = new BAMContext();
+             BamRepository bamRepository = new(context);
+             VehiculoService vehiculoService = new(bamRepository);
 
 
-            return vehiculoService;
+             return vehiculoService;
 
-        }*/
+         }*/
         public VehiculoController(VehiculoService vehiculoService)
         {
             _service = vehiculoService;
@@ -52,7 +52,7 @@ namespace ExamenBam.Controllers
         public ActionResult<Vehiculo> Get(Guid id)
         {
             return _service.GetById(id);
-        } 
+        }
 
         // POST api/<VehiculoController>
         [HttpPost]
@@ -65,15 +65,22 @@ namespace ExamenBam.Controllers
         }
 
         // PUT api/<VehiculoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public ActionResult Put([FromBody] Vehiculo pVehiculo)
         {
+            _service.Update(pVehiculo);
+
+            return Ok("Se modifico el vehiculo correctamente");
+
         }
 
         // DELETE api/<VehiculoController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(Guid id)
         {
+            _service.Delete(id);
+
+            return Ok("Se elimino el vehiculo");
         }
     }
 }

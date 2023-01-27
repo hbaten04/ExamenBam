@@ -37,7 +37,7 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
 
         public Marca GetById(Guid entityID)
         {
-            throw new NotImplementedException();
+            return _db.marca.Find(entityID);
         }
 
         public void Save()
@@ -47,7 +47,12 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
 
         public void Update(Marca entity)
         {
-            throw new NotImplementedException();
+            var vMarca = _db.marca.Where(x => x.MarcaId == entity.MarcaId).FirstOrDefault();
+
+            if (vMarca != null)
+            {
+                vMarca.Descripcion = entity.Descripcion;
+            }
         }
     }
 }

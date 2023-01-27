@@ -12,6 +12,8 @@ IConfiguration configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddScoped<IRepository<Vehiculo, Guid>, BamRepository>();
 builder.Services.AddScoped<IRepository<Cotizacion, Guid>, CotizacionRepository>();
+builder.Services.AddScoped<IRepository<Marca, Guid>, MarcaRepository>();
+builder.Services.AddScoped<IRepository<TipoVehiculo, Guid>, TipoVehiculoRepository>();
 
 builder.Services.AddDbContext<BAMContext>(options =>
 {
@@ -20,6 +22,8 @@ builder.Services.AddDbContext<BAMContext>(options =>
 
 builder.Services.AddScoped<VehiculoService>();
 builder.Services.AddScoped<CotizacionService>();
+builder.Services.AddScoped<MarcaService>();
+builder.Services.AddScoped<TipoVehiculoService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
