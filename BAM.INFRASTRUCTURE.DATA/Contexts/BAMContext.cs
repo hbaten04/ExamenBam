@@ -12,6 +12,16 @@ namespace BAM.INFRASTRUCTURE.DATA.Contexts
 {
     public class BAMContext : DbContext
     {
+
+        public BAMContext()
+        {
+
+        }
+
+        public BAMContext(DbContextOptions<BAMContext> options):base(options)
+        {
+
+        }
         public DbSet<Vehiculo> vehiculo { get; set; }
         public DbSet<Marca> marca { get; set; }
         public DbSet<TipoVehiculo> tipoVehiculo { get; set; }

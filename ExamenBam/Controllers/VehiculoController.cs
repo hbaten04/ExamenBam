@@ -14,7 +14,10 @@ namespace ExamenBam.Controllers
     {
         // GET: api/<VehiculoController>
 
-        VehiculoService vehiculoService()
+
+        private readonly VehiculoService _service;
+
+       /* VehiculoService vehiculoService()
         {
             BAMContext context = new BAMContext();
             BamRepository bamRepository = new(context);
@@ -23,7 +26,13 @@ namespace ExamenBam.Controllers
 
             return vehiculoService;
 
+        }*/
+        public VehiculoController(VehiculoService vehiculoService)
+        {
+            _service = vehiculoService;
         }
+
+
 
         [HttpGet]
         public ActionResult<List<Vehiculo>> Get()
@@ -31,23 +40,23 @@ namespace ExamenBam.Controllers
             //BAMContext bAMContext = new BAMContext();
            // bAMContext.Database.EnsureDeleted();
             //bAMContext.Database.EnsureCreated();
-            var servicio = vehiculoService();
-            return Ok(servicio.Get());
+            //var servicio =  vehiculoService();
+            return Ok(_service.Get());
         }
 
         // GET api/<VehiculoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Vehiculo> Get(Guid id)
         {
-            return "value";
+            return _service.GetById(id);
         } 
 
         // POST api/<VehiculoController>
         [HttpPost]
         public ActionResult Post([FromBody] Vehiculo pVehiculo)
         {
-            var servicio = vehiculoService();
-            servicio.Add(pVehiculo);
+            //var servicio = vehiculoService();
+            _service.Add(pVehiculo);
 
             return Ok("Se agrego satisfactoriamente");
         }

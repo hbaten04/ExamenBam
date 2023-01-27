@@ -45,7 +45,7 @@ namespace BAM.INFRASTRUCTURE.DATA.Repository
 
         public Vehiculo GetById(Guid entityID)
         {
-            throw new NotImplementedException();
+            return _db.vehiculo.Find(entityID);
         }
 
         public void Save()
