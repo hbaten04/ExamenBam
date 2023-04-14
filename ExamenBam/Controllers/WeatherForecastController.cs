@@ -1,3 +1,4 @@
+using BAM.DOMAIN.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamenBam.Controllers
@@ -19,15 +20,22 @@ namespace ExamenBam.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public ActionResult<Marca> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var rng = new Random();
+
+            Marca obj = new Marca
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+
+                MarcaId = Guid.NewGuid(),
+                Descripcion = "ALGO",
+                Vehiculos = null
+
+
+            };
+
+
+            return Ok(obj);
         }
     }
 }
